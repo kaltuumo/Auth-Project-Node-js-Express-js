@@ -10,7 +10,7 @@ const { acceptFPCodeSchema } = require("../middlewares/validator");
 const { doHash , doHashValidation} = require("../utils/hashing");
 
 exports.signup = async (req, res) => {
-    const { email, password } = req.body;
+    const { fullname,email, password, phone } = req.body;
     try {
         const { error, value } = signupschema.validate({ email, password });
         if (error) {
@@ -23,11 +23,13 @@ exports.signup = async (req, res) => {
         }
 
         // Hash the password using dohash
-        const hashedPassword = await dohash(password, 12); // 12 is the salt rounds
+        const hashedPassword = await doHash(password, 12); // 12 is the salt rounds
 
         const newUser = new User({
+			fullname,
             email,
             password: hashedPassword,
+			phone,
         });
 
         const result = await newUser.save();
@@ -67,6 +69,8 @@ exports.signin = async (req, res) => {
 			{
 				userId: existingUser._id,
 				email: existingUser.email,
+				fullname: existingUser.fullname,
+				phone: existingUser.phone,
 				verified: existingUser.verified,
 			},
 			process.env.TOKEN_SECRET,
