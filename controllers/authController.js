@@ -89,7 +89,7 @@ exports.signin = async (req, res) => {
 			.json({
 				success: true,
 				token,
-				message: 'logged in successfully',
+				message: 'Login successfully',
 			});
 	} catch (error) {
 		console.log(error);
