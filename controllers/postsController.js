@@ -26,6 +26,8 @@ exports.getPosts = async (req, res) => {
 	}
 };
 
+
+
 exports.singlePost = async (req, res) => {
 	const { _id } = req.query;
 

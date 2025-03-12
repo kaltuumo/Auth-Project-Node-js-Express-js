@@ -63,3 +63,9 @@ exports.createPostSchema = joi.object({
 	description: joi.string().min(3).max(600).required(),
 	userId: joi.string().required(),
 });
+
+const mongoose = require('mongoose');
+
+
+
+
